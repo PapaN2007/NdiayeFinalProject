@@ -1,4 +1,6 @@
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,7 +18,7 @@ public class MusicSelectionPanel extends JPanel implements ActionListener {
     private JFrame enclosingFrame;
     private BufferedImage background;
 
-    public MusicSelectionPanel(JFrame frame) {
+    public MusicSelectionPanel(JFrame frame){
         enclosingFrame = frame;
         try {
             background = ImageIO.read(new File("src/musicbackground.png"));
@@ -56,6 +58,7 @@ public class MusicSelectionPanel extends JPanel implements ActionListener {
             JButton button = (JButton) e.getSource();
             if (button == rapButton) {
                 System.out.println("Rap");
+                RapFrame r = new RapFrame();
             } else if (button == countryButton){
                 System.out.println("Country");
             }else if (button == animeButton){

@@ -1,4 +1,6 @@
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -49,8 +51,8 @@ public class WelcomePanel extends JPanel implements ActionListener {
             JButton button = (JButton) e.getSource();
             if (button == submitButton) {
                 String playerName = textField.getText();
-                enclosingFrame.setVisible(false);
                 MusicSelectionFrame m = new MusicSelectionFrame();
+                enclosingFrame.setVisible(false);
             } else {
                 textField.setText("");
             }
