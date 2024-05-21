@@ -16,6 +16,5 @@ public class WelcomeFrame {
         // display the frame
         frame.setVisible(true);
 
-        // no thread needed here since we aren't doing animation for this frame/panel
     }
 }

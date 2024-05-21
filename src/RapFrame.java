@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class RapFrame {
+public class RapFrame implements Runnable{
     private RapPanel panel;
 
     public RapFrame() {
@@ -11,5 +11,13 @@ public class RapFrame {
         panel = new RapPanel(frame);
         frame.add(panel);
         frame.setVisible(true);
+        Thread thread = new Thread(this);
+        thread.start();
+    }
+
+    public void run() {
+        while (true) {
+            panel.repaint();  // we don't ever call "paintComponent" directly, but call this to refresh the panel
+        }
     }
 }
