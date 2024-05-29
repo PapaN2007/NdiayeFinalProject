@@ -80,11 +80,33 @@ public class RapPanel extends JPanel implements ActionListener {
         playButton.addActionListener(this);
         current = instruments;
         song1 = new ArrayList<>();
-        song1.add("Test.wav");
-        song1.add("Test (3).wav");
-        song1.add("Test (2).wav");
-        songName = "n in paris";
-        musicFiles = song1;
+        song2 = new ArrayList<>();
+        song3 = new ArrayList<>();
+        song4 = new ArrayList<>();
+        song1.add("music1instrument.wav");
+        song1.add("music1verse.wav");
+        song2.add("music2instrument.wav");
+        song2.add("music2verse.wav");
+        song3.add("music3instrument.wav");
+        song3.add("music3verse.wav");
+        song4.add("music4instrument.wav");
+        song4.add("music4verse.wav");
+        int rand = (int) (Math.random() * 4)+1;
+        if (rand == 1){
+            musicFiles = song1;
+            songName = "n in paris";
+        }else if (rand == 2){
+            musicFiles = song2;
+            songName = "marvins room";
+        }else if (rand == 3){
+            musicFiles = song3;
+            songName = "band4band";
+        }else if (rand == 4){
+            musicFiles = song4;
+            songName = "big poopa";
+        }else{
+            System.out.println("error");
+        }
     }
 
     @Override
@@ -98,8 +120,8 @@ public class RapPanel extends JPanel implements ActionListener {
         textField.setLocation(140, 400);
         instruments.setLocation(140, 50);
         artistBirth.setLocation(140, 275);
-        coverSong.setLocation(140, 125);
-        verse.setLocation(140, 200);
+        coverSong.setLocation(140, 200);
+        verse.setLocation(140, 125);
         guessButton.setLocation(100, 425);
         clearButton.setLocation(180, 425);
         playButton.setLocation(255,425);
@@ -107,7 +129,7 @@ public class RapPanel extends JPanel implements ActionListener {
     }
     private void playMusic() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/" + musicFiles.get(count)).getAbsoluteFile());
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/"+musicFiles.get(count)).getAbsoluteFile());
             songClip = AudioSystem.getClip();
             songClip.open(audioInputStream);
             songClip.start();
@@ -116,7 +138,6 @@ public class RapPanel extends JPanel implements ActionListener {
         }
     }
 
-    // ACTIONLISTENER INTERFACE METHODS
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
             JButton button = (JButton) e.getSource();
@@ -164,21 +185,24 @@ public class RapPanel extends JPanel implements ActionListener {
                 System.out.println("Section Skipped");
                 if (current == instruments){
                     instruments.setBackground(Color.RED);
-                    coverSong.setBackground(Color.GREEN);
-                    current = coverSong;
-                    guess++;
-                    songClip.stop();
-                }else if (current == coverSong){
-                    coverSong.setBackground(Color.RED);
                     verse.setBackground(Color.GREEN);
                     current = verse;
                     guess++;
+                    count++;
                     songClip.stop();
-                } else if (current == verse){
+                }else if (current == verse){
                     verse.setBackground(Color.RED);
+                    coverSong.setBackground(Color.GREEN);
+                    current = coverSong;
+                    guess++;
+                    count++;
+                    songClip.stop();
+                } else if (current == coverSong){
+                    coverSong.setBackground(Color.RED);
                     artistBirth.setBackground(Color.GREEN);
                     current = artistBirth;
                     guess++;
+                    count++;
                     songClip.stop();
                 }
             } else{
