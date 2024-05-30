@@ -32,8 +32,10 @@ public class RapPanel extends JPanel implements ActionListener {
     private JButton playButton;
     private JButton clearButton;
     private JButton skipButton;
+    private JTextField birth;
     private int guess;
     private JFrame enclosingFrame;
+    private JTextField streams;
     private String songName;
     private BufferedImage background;
     private int count;
@@ -46,6 +48,8 @@ public class RapPanel extends JPanel implements ActionListener {
             System.out.println(e.getMessage());
         }
         textField = new JTextField(20);
+        birth = new JTextField(20);
+        streams = new JTextField(20);
         instruments = new JTextField(20);
         instruments.setText("                         Instrumental");
         instruments.setBackground(Color.GREEN);
@@ -54,7 +58,7 @@ public class RapPanel extends JPanel implements ActionListener {
         artistBirth.setText("                      Artist Birth Place");
         artistBirth.setEditable(false);
         coverSong = new JTextField(20);
-        coverSong.setText("                        Medieval Remix");
+        coverSong.setText("                       Number of Streams");
         coverSong.setEditable(false);
         verse = new JTextField(20);
         verse.setText("                                 Verse");
@@ -66,6 +70,8 @@ public class RapPanel extends JPanel implements ActionListener {
         guess = 0;
         count = 0;
         add(textField);
+        add(birth);
+        add(streams);
         add(guessButton);
         add(clearButton);
         add(playButton);
@@ -91,20 +97,28 @@ public class RapPanel extends JPanel implements ActionListener {
         song3.add("music3verse.wav");
         song4.add("music4instrument.wav");
         song4.add("music4verse.wav");
-        int rand = (int) (Math.random() * 4)+1;
-        if (rand == 1){
+        int rand = (int) (Math.random() * 4) + 1;
+        if (rand == 1) {
             musicFiles = song1;
             songName = "n in paris";
-        }else if (rand == 2){
+            birth.setText("               Atlanta,Georgia");
+            streams.setText("            1.4 Billion Streams");
+        } else if (rand == 2) {
             musicFiles = song2;
             songName = "marvins room";
-        }else if (rand == 3){
+            birth.setText("               Toronto,Canada");
+            streams.setText("             155 Million Streams");
+        } else if (rand == 3) {
             musicFiles = song3;
             songName = "band4band";
-        }else if (rand == 4){
+            birth.setText("                Shepherd's Bush, London");
+            streams.setText("              13 Million Streams");
+        } else if (rand == 4) {
             musicFiles = song4;
-            songName = "big poopa";
-        }else{
+            songName = "big poppa";
+            birth.setText("               Brooklyn, New York");
+            streams.setText("             478 Million Streams");
+        } else {
             System.out.println("error");
         }
     }
@@ -118,18 +132,21 @@ public class RapPanel extends JPanel implements ActionListener {
         g.drawString("Enter your guess", 200, 385);
         g.drawString("Guesses: " + guess, 20, 50);
         textField.setLocation(140, 400);
+        streams.setLocation(1000, 1000);
         instruments.setLocation(140, 50);
-        artistBirth.setLocation(140, 275);
-        coverSong.setLocation(140, 200);
+        artistBirth.setLocation(140, 200);
+        birth.setLocation(1000, 1000);
+        coverSong.setLocation(140, 275);
         verse.setLocation(140, 125);
         guessButton.setLocation(100, 425);
         clearButton.setLocation(180, 425);
-        playButton.setLocation(255,425);
-        skipButton.setLocation(330,425);
+        playButton.setLocation(255, 425);
+        skipButton.setLocation(330, 425);
     }
+
     private void playMusic() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/"+musicFiles.get(count)).getAbsoluteFile());
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/" + musicFiles.get(count)).getAbsoluteFile());
             songClip = AudioSystem.getClip();
             songClip.open(audioInputStream);
             songClip.start();
@@ -143,32 +160,36 @@ public class RapPanel extends JPanel implements ActionListener {
             JButton button = (JButton) e.getSource();
             if (button == guessButton) {
                 System.out.println("Guessed");
-                if (textField.getText().equals(songName)){
+                if (textField.getText().equals(songName)) {
                     System.out.println("Correct!");
                     songClip.stop();
                     WinFrame w = new WinFrame();
                     enclosingFrame.setVisible(false);
-                }else{
+                } else{
                     guess++;
                     count++;
                     textField.setText("");
                     if (current == instruments){
                         instruments.setBackground(Color.RED);
-                        coverSong.setBackground(Color.GREEN);
-                        current = coverSong;
-                        guess++;
-                        songClip.stop();
-                    }else if (current == coverSong){
-                        coverSong.setBackground(Color.RED);
                         verse.setBackground(Color.GREEN);
                         current = verse;
                         guess++;
                         songClip.stop();
-                    } else if (current == verse){
+                    }else if (current == verse){
                         verse.setBackground(Color.RED);
                         artistBirth.setBackground(Color.GREEN);
+                        artistBirth.setText(birth.getText());
                         current = artistBirth;
                         guess++;
+                        count++;
+                        songClip.stop();
+                    } else if (current == artistBirth){
+                        artistBirth.setBackground(Color.RED);
+                        coverSong.setBackground(Color.GREEN);
+                        coverSong.setText(streams.getText());
+                        current = coverSong;
+                        guess++;
+                        count++;
                         songClip.stop();
                     }
                 }
@@ -192,15 +213,18 @@ public class RapPanel extends JPanel implements ActionListener {
                     songClip.stop();
                 }else if (current == verse){
                     verse.setBackground(Color.RED);
-                    coverSong.setBackground(Color.GREEN);
-                    current = coverSong;
+                    artistBirth.setBackground(Color.GREEN);
+                    artistBirth.setText(birth.getText());
+                    current = artistBirth;
                     guess++;
                     count++;
                     songClip.stop();
-                } else if (current == coverSong){
-                    coverSong.setBackground(Color.RED);
-                    artistBirth.setBackground(Color.GREEN);
-                    current = artistBirth;
+                } else if (current == artistBirth){
+                    artistBirth.setBackground(Color.RED);
+                    artistBirth.setText("                      Artist Birth Place");
+                    coverSong.setBackground(Color.GREEN);
+                    coverSong.setText(streams.getText());
+                    current = coverSong;
                     guess++;
                     count++;
                     songClip.stop();

@@ -10,11 +10,12 @@ public class WinPanel extends JPanel{
     private JTextField textField;
     private BufferedImage background;
     private JFrame enclosingFrame;
+    private double stringX;
 
 
     public WinPanel(JFrame frame) {
         enclosingFrame = frame;
-
+        stringX = 180;
         try {
             background = ImageIO.read(new File("src/background.png"));
         } catch (IOException e) {
@@ -25,11 +26,15 @@ public class WinPanel extends JPanel{
 
     @Override
     public void paintComponent(Graphics g) {
+        stringX += 0.05;
+        if (stringX > 500) {
+            stringX = 0;
+        }
         super.paintComponent(g);
         g.setFont(new Font("Calibri", Font.BOLD, 16));
         g.setColor(Color.WHITE);
         g.drawImage(background, 0, 0, null);
-        g.drawString("Congrats You Won!!!!", 250,250);
+        g.drawString("Congrats You Won!!!!", (int) stringX,225);
     }
 }
 

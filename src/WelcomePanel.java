@@ -50,7 +50,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
     private void playMusic() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/assets/theme_song.wav").getAbsoluteFile());
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/intro.wav").getAbsoluteFile());
             songClip = AudioSystem.getClip();
             songClip.open(audioInputStream);
             songClip.loop(Clip.LOOP_CONTINUOUSLY);  // song repeats when finished
