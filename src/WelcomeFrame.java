@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class WelcomeFrame {
+public class WelcomeFrame implements Runnable {
     private WelcomePanel panel;
 
     public WelcomeFrame() {
@@ -15,6 +15,13 @@ public class WelcomeFrame {
 
         // display the frame
         frame.setVisible(true);
+        Thread thread = new Thread((Runnable) this);
+        thread.start();
+    }
 
+    public void run() {
+        while (true) {
+            panel.repaint();  // we don't ever call "paintComponent" directly, but call this to refresh the panel
+        }
     }
 }

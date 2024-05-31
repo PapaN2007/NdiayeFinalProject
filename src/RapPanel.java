@@ -20,6 +20,7 @@ public class RapPanel extends JPanel implements ActionListener {
     private JTextField verse;
     private JTextField current;
     private Clip songClip;
+    private boolean playing;
 
     private ArrayList<String> musicFiles;
     private ArrayList<String> song1;
@@ -150,6 +151,7 @@ public class RapPanel extends JPanel implements ActionListener {
             songClip = AudioSystem.getClip();
             songClip.open(audioInputStream);
             songClip.start();
+            playing = true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -175,6 +177,7 @@ public class RapPanel extends JPanel implements ActionListener {
                         current = verse;
                         guess++;
                         songClip.stop();
+                        playing = false;
                     }else if (current == verse){
                         verse.setBackground(Color.RED);
                         artistBirth.setBackground(Color.GREEN);
@@ -183,6 +186,7 @@ public class RapPanel extends JPanel implements ActionListener {
                         guess++;
                         count++;
                         songClip.stop();
+                        playing = false;
                     } else if (current == artistBirth){
                         artistBirth.setBackground(Color.RED);
                         coverSong.setBackground(Color.GREEN);
@@ -191,13 +195,16 @@ public class RapPanel extends JPanel implements ActionListener {
                         guess++;
                         count++;
                         songClip.stop();
+                        playing = false;
                     }
                 }
             }else if (button == playButton) {
                 System.out.println("Music Played");
+                if (playing) {
+                    songClip.stop();
+                    playing = false;
+                }
                 if (current == instruments){
-                    playMusic();
-                } else if (current == coverSong){
                     playMusic();
                 } else if (current == verse){
                     playMusic();
@@ -210,7 +217,10 @@ public class RapPanel extends JPanel implements ActionListener {
                     current = verse;
                     guess++;
                     count++;
-                    songClip.stop();
+                    if (playing) {
+                        songClip.stop();
+                        playing = false;
+                    }
                 }else if (current == verse){
                     verse.setBackground(Color.RED);
                     artistBirth.setBackground(Color.GREEN);
@@ -218,7 +228,10 @@ public class RapPanel extends JPanel implements ActionListener {
                     current = artistBirth;
                     guess++;
                     count++;
-                    songClip.stop();
+                    if (playing) {
+                        songClip.stop();
+                        playing = false;
+                    }
                 } else if (current == artistBirth){
                     artistBirth.setBackground(Color.RED);
                     artistBirth.setText("                      Artist Birth Place");
@@ -227,7 +240,10 @@ public class RapPanel extends JPanel implements ActionListener {
                     current = coverSong;
                     guess++;
                     count++;
-                    songClip.stop();
+                    if (playing) {
+                        songClip.stop();
+                        playing = false;
+                    }
                 }
             } else{
                 textField.setText("");

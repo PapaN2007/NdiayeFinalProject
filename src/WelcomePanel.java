@@ -4,35 +4,33 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-public class WelcomePanel extends JPanel implements ActionListener {
+public class WelcomePanel extends JPanel implements KeyListener {
 
-    private JTextField textField;
-    private JButton guessButton;
-    private JButton clearButton;
     private JFrame enclosingFrame;
     private BufferedImage background;
+    private BufferedImage image;
+
     private Clip songClip;
+    private boolean[] pressedKeys;
+
 
     public WelcomePanel(JFrame frame) {
         enclosingFrame = frame;
         try {
             background = ImageIO.read(new File("src/background.png"));
+            image = ImageIO.read(new File("src/spotify.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        textField = new JTextField(20);
-        guessButton = new JButton("Submit");
-        clearButton = new JButton("Clear");
-        add(textField);  // textField doesn't need a listener since nothing needs to happen when we type in text
-        add(guessButton);
-        add(clearButton);
-        guessButton.addActionListener(this);
-        clearButton.addActionListener(this);
+        pressedKeys = new boolean[128];
+        addKeyListener(this);
+        setFocusable(true);
+        requestFocusInWindow();
         playMusic();
     }
 
@@ -42,10 +40,15 @@ public class WelcomePanel extends JPanel implements ActionListener {
         g.setFont(new Font("Calibri", Font.BOLD, 16));
         g.setColor(Color.WHITE);
         g.drawImage(background, 0, 0, null);
-        g.drawString("Please enter your name:", 150, 200);
-        textField.setLocation(130, 225);
-        guessButton.setLocation(150, 250);
-        clearButton.setLocation(250, 250);
+        g.drawImage(image, 50,50,null);
+        g.drawString("Press Enter To Continue", 158, 225);
+
+        if (pressedKeys[10]) {
+            MusicSelectionFrame m = new MusicSelectionFrame();
+            enclosingFrame.setVisible(false);
+            songClip.stop();
+            songClip.close();
+        }
     }
 
     private void playMusic() {
@@ -60,19 +63,20 @@ public class WelcomePanel extends JPanel implements ActionListener {
         }
     }
 
-    // ACTIONLISTENER INTERFACE METHODS
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JButton) {
-            JButton button = (JButton) e.getSource();
-            if (button == guessButton) {
-                String playerName = textField.getText();
-                MusicSelectionFrame m = new MusicSelectionFrame();
-                enclosingFrame.setVisible(false);
-                songClip.stop();
-                songClip.close();
-            } else {
-                textField.setText("");
-            }
-        }
+
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+        System.out.println(key);
+        pressedKeys[key] = true;
     }
+
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+        pressedKeys[key] = false;
+    }
+
 }
