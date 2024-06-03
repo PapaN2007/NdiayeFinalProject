@@ -28,7 +28,7 @@ public class MusicSelectionPanel extends JPanel implements ActionListener {
         rapButton = new JButton("Rap Music");
         countryButton = new JButton("Country Music");
         animeButton = new JButton("Anime Ost");
-        popularButton = new JButton("Popular Music");
+        popularButton = new JButton("Pop Music");
         add(rapButton);
         add(countryButton);
         add(animeButton);
@@ -62,10 +62,16 @@ public class MusicSelectionPanel extends JPanel implements ActionListener {
                 enclosingFrame.setVisible(false);
             } else if (button == countryButton){
                 System.out.println("Country");
+                CountryFrame c = new CountryFrame();
+                enclosingFrame.setVisible(false);
             }else if (button == animeButton){
                 System.out.println("Anime");
+                AnimeFrame a = new AnimeFrame();
+                enclosingFrame.setVisible(false);
             }else{
                 System.out.println("Popular");
+                PopFrame p = new PopFrame();
+                enclosingFrame.setVisible(false);
             }
         }
     }
