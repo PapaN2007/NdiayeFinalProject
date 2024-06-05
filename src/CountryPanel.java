@@ -90,35 +90,35 @@ public class CountryPanel extends JPanel implements ActionListener {
         song2 = new ArrayList<>();
         song3 = new ArrayList<>();
         song4 = new ArrayList<>();
-        song1.add("music1instrument.wav");
-        song1.add("music1verse.wav");
-        song2.add("music2instrument.wav");
-        song2.add("music2verse.wav");
-        song3.add("music3instrument.wav");
-        song3.add("music3verse.wav");
-        song4.add("music4instrument.wav");
-        song4.add("music4verse.wav");
+        song1.add("music9instrument.wav");
+        song1.add("music9verse.wav");
+        song2.add("music10instrument.wav");
+        song2.add("music10verse.wav");
+        song3.add("music11instrument.wav");
+        song3.add("music11verse.wav");
+        song4.add("music12instrument.wav");
+        song4.add("music12verse.wav");
         int rand = (int) (Math.random() * 4) + 1;
         if (rand == 1) {
             musicFiles = song1;
-            songName = "n in paris";
-            birth.setText("               Atlanta,Georgia");
-            streams.setText("            1.4 Billion Streams");
+            songName = "jolene";
+            birth.setText("               Pittman Center, Tennessee");
+            streams.setText("            93 Million Streams");
         } else if (rand == 2) {
             musicFiles = song2;
-            songName = "marvins room";
-            birth.setText("               Toronto,Canada");
-            streams.setText("             155 Million Streams");
+            songName = "country roads";
+            birth.setText("               Roswell, New Mexico");
+            streams.setText("             512 Million Streams");
         } else if (rand == 3) {
             musicFiles = song3;
-            songName = "band4band";
-            birth.setText("                Shepherd's Bush, London");
-            streams.setText("              13 Million Streams");
+            songName = "callin baton rouge";
+            birth.setText("                Tulsa, Oklahoma");
+            streams.setText("              2.4 Million Streams");
         } else if (rand == 4) {
             musicFiles = song4;
-            songName = "big poppa";
-            birth.setText("               Brooklyn, New York");
-            streams.setText("             478 Million Streams");
+            songName = "cotton eye joe";
+            birth.setText("               Sweden ");
+            streams.setText("             215 Million Streams");
         } else {
             System.out.println("error");
         }
