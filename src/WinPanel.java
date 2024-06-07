@@ -4,16 +4,19 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-public class WinPanel extends JPanel{
+public class WinPanel extends JPanel implements KeyListener{
 
     private JTextField textField;
     private BufferedImage background;
     private JFrame enclosingFrame;
     private double stringX;
     private Clip songClip;
+    private boolean[] pressedKeys;
 
 
 
@@ -26,8 +29,11 @@ public class WinPanel extends JPanel{
             System.out.println(e.getMessage());
         }
         textField = new JTextField("Congrats You Won!!!!!");
+        pressedKeys = new boolean[128];
+        addKeyListener(this);
+        setFocusable(true);
+        requestFocusInWindow();
         playMusic();
-
     }
     private void playMusic() {
         try {
@@ -52,7 +58,27 @@ public class WinPanel extends JPanel{
         g.setColor(Color.BLACK);
         g.drawImage(background, 0, 0, null);
         g.drawString("Congrats You Won!!!!", (int) stringX,225);
+        g.drawString("Press Enter To Play Again", (int) stringX, 275);
+
+        if (pressedKeys[10]) {
+            MusicSelectionFrame m = new MusicSelectionFrame();
+            enclosingFrame.setVisible(false);
+            songClip.stop();
+            songClip.close();
+        }
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+        pressedKeys[key] = true;
+    }
+
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+        pressedKeys[key] = false;
+    }
+
 }
-
-
