@@ -161,9 +161,7 @@ public class RapPanel extends JPanel implements ActionListener {
         if (e.getSource() instanceof JButton) {
             JButton button = (JButton) e.getSource();
             if (button == guessButton) {
-                System.out.println("Guessed");
                 if (textField.getText().equals(songName)) {
-                    System.out.println("Correct!");
                     songClip.stop();
                     WinFrame w = new WinFrame();
                     enclosingFrame.setVisible(false);
@@ -197,9 +195,12 @@ public class RapPanel extends JPanel implements ActionListener {
                         songClip.stop();
                         playing = false;
                     }
+                    if (guess == 4){
+                        LoseFrame l = new LoseFrame();
+                        enclosingFrame.setVisible(false);
+                    }
                 }
             }else if (button == playButton) {
-                System.out.println("Music Played");
                 if (playing) {
                     songClip.stop();
                     playing = false;
@@ -210,7 +211,6 @@ public class RapPanel extends JPanel implements ActionListener {
                     playMusic();
                 }
             }else if (button == skipButton){
-                System.out.println("Section Skipped");
                 if (current == instruments){
                     instruments.setBackground(Color.RED);
                     verse.setBackground(Color.GREEN);
@@ -244,6 +244,10 @@ public class RapPanel extends JPanel implements ActionListener {
                         songClip.stop();
                         playing = false;
                     }
+                }
+                else{
+                    LoseFrame l = new LoseFrame();
+                    enclosingFrame.setVisible(false);
                 }
             } else{
                 textField.setText("");

@@ -57,19 +57,15 @@ public class MusicSelectionPanel extends JPanel implements ActionListener {
         if (e.getSource() instanceof JButton) {
             JButton button = (JButton) e.getSource();
             if (button == rapButton) {
-                System.out.println("Rap");
                 RapFrame r = new RapFrame();
                 enclosingFrame.setVisible(false);
             } else if (button == countryButton){
-                System.out.println("Country");
                 CountryFrame c = new CountryFrame();
                 enclosingFrame.setVisible(false);
             }else if (button == animeButton){
-                System.out.println("Anime");
                 AnimeFrame a = new AnimeFrame();
                 enclosingFrame.setVisible(false);
             }else{
-                System.out.println("Popular");
                 PopFrame p = new PopFrame();
                 enclosingFrame.setVisible(false);
             }

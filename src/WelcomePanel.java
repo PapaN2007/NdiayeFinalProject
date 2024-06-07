@@ -70,7 +70,6 @@ public class WelcomePanel extends JPanel implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        System.out.println(key);
         pressedKeys[key] = true;
     }
 

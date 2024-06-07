@@ -90,35 +90,35 @@ public class PopPanel extends JPanel implements ActionListener {
         song2 = new ArrayList<>();
         song3 = new ArrayList<>();
         song4 = new ArrayList<>();
-        song1.add("music1instrument.wav");
-        song1.add("music1verse.wav");
-        song2.add("music2instrument.wav");
-        song2.add("music2verse.wav");
-        song3.add("music3instrument.wav");
-        song3.add("music3verse.wav");
-        song4.add("music4instrument.wav");
-        song4.add("music4verse.wav");
+        song1.add("music13instrument.wav");
+        song1.add("music13verse.wav");
+        song2.add("music14instrument.wav");
+        song2.add("music14verse.wav");
+        song3.add("music15instrument.wav");
+        song3.add("music15verse.wav");
+        song4.add("music16instrument.wav");
+        song4.add("music16verse.wav");
         int rand = (int) (Math.random() * 4) + 1;
         if (rand == 1) {
             musicFiles = song1;
-            songName = "n in paris";
-            birth.setText("               Atlanta,Georgia");
-            streams.setText("            1.4 Billion Streams");
+            songName = "thriller";
+            birth.setText("               Gary, Indiana");
+            streams.setText("            980 Million Streams");
         } else if (rand == 2) {
             musicFiles = song2;
-            songName = "marvins room";
-            birth.setText("               Toronto,Canada");
-            streams.setText("             155 Million Streams");
+            songName = "i luv it";
+            birth.setText("                Cojímar, La Habana, Cuba");
+            streams.setText("             14 Million Streams");
         } else if (rand == 3) {
             musicFiles = song3;
-            songName = "band4band";
-            birth.setText("                Shepherd's Bush, London");
-            streams.setText("              13 Million Streams");
+            songName = "you belong with me";
+            birth.setText("                West Reading, Pennsylvania");
+            streams.setText("              1.5 Billion Streams");
         } else if (rand == 4) {
             musicFiles = song4;
-            songName = "big poppa";
-            birth.setText("               Brooklyn, New York");
-            streams.setText("             478 Million Streams");
+            songName = "good days";
+            birth.setText("               St. Louis, Missouri");
+            streams.setText("             113 Million Streams");
         } else {
             System.out.println("error");
         }
@@ -161,9 +161,7 @@ public class PopPanel extends JPanel implements ActionListener {
         if (e.getSource() instanceof JButton) {
             JButton button = (JButton) e.getSource();
             if (button == guessButton) {
-                System.out.println("Guessed");
                 if (textField.getText().equals(songName)) {
-                    System.out.println("Correct!");
                     songClip.stop();
                     WinFrame w = new WinFrame();
                     enclosingFrame.setVisible(false);
@@ -197,9 +195,12 @@ public class PopPanel extends JPanel implements ActionListener {
                         songClip.stop();
                         playing = false;
                     }
+                    if (guess == 4){
+                        LoseFrame l = new LoseFrame();
+                        enclosingFrame.setVisible(false);
+                    }
                 }
             }else if (button == playButton) {
-                System.out.println("Music Played");
                 if (playing) {
                     songClip.stop();
                     playing = false;
@@ -210,7 +211,6 @@ public class PopPanel extends JPanel implements ActionListener {
                     playMusic();
                 }
             }else if (button == skipButton){
-                System.out.println("Section Skipped");
                 if (current == instruments){
                     instruments.setBackground(Color.RED);
                     verse.setBackground(Color.GREEN);
@@ -244,6 +244,10 @@ public class PopPanel extends JPanel implements ActionListener {
                         songClip.stop();
                         playing = false;
                     }
+                }
+                else{
+                    LoseFrame l = new LoseFrame();
+                    enclosingFrame.setVisible(false);
                 }
             } else{
                 textField.setText("");

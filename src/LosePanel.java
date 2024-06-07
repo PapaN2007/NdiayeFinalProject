@@ -21,7 +21,7 @@ public class LosePanel extends JPanel{
         enclosingFrame = frame;
         stringX = 180;
         try {
-            background = ImageIO.read(new File("src/winbackground.png"));
+            background = ImageIO.read(new File("src/sadbackground.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -31,7 +31,7 @@ public class LosePanel extends JPanel{
     }
     private void playMusic() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/outro.wav").getAbsoluteFile());
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/sadoutro.wav").getAbsoluteFile());
             songClip = AudioSystem.getClip();
             songClip.open(audioInputStream);
             songClip.loop(Clip.LOOP_CONTINUOUSLY);  // song repeats when finished
@@ -49,9 +49,9 @@ public class LosePanel extends JPanel{
         }
         super.paintComponent(g);
         g.setFont(new Font("Calibri", Font.BOLD, 16));
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.drawImage(background, 0, 0, null);
-        g.drawString("Congrats You Won!!!!", (int) stringX,225);
+        g.drawString("Unfortunately You Have Lost :( :( :(", (int) stringX,225);
     }
 }
 
